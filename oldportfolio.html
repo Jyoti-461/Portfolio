@@ -1,0 +1,338 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="portfolio.css" />
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("SI-bIxou0gEgCKqN2"); // Replace with your EmailJS user ID
+    })();
+  </script>
+</head>
+
+<body>
+  <!-- Header with Navigation -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <div class="logo">Port<span>folio</span></div>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#certificates">Certificates</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fas fa-sun toggle-icon sun"></i>
+          <i class="fas fa-moon toggle-icon moon"></i>
+          <span class="toggle-circle"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Hi, I'm <span class="highlight">Jyoti Jayant</span></h1>
+        <h1>BCA Student & Web Developer</h1>
+        <p>I create engaging digital experiences with clean, efficient code. Passionate about solving problems and building innovative solutions.</p>
+        <div class="btn-container">
+          <a href="#projects" class="btn btn-outline">View My Work</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="dp.jpg" alt="Jyoti Jayant" />
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+    <section id="about" class="about">
+    <div class="container">
+      <div class="section-header">
+        <h2>About Me</h2>
+        <p>Get to know more about my background, skills, and passion for technology</p>
+      </div>
+      <div class="about-content">
+        <div class="about-text">
+          <h3>Passionate Web Developer & BCA Student</h3>
+          <p>Hello! I’m <strong>Jyoti Jayant</strong>, currently pursuing a Bachelor of Computer Applications at <strong>Patliputra University</strong> from CIMAGE College. With a solid grounding in computer science principles and a passion for building intuitive, elegant websites, I aim to solve real-world problems through code.</p>
+          <p>Over the past 3+ years, I’ve Polished my skills in both frontend and backend development, working with technologies like <strong>HTML, CSS, JavaScript, PHP, and MySQL</strong>. My goal is to continue learning, evolving, and contributing to impactful web projects.</p>
+          <p>I enjoy turning ideas into reality through clean, efficient, and scalable code. Whether it’s crafting responsive interfaces or building dynamic web applications, I thrive on challenges and continuous growth.</p>
+
+          <h4>Technical Proficiencies:</h4>
+          <div class="skills-section">
+            <h3>Technical Proficiencies</h3>
+            <div class="skills-grid">
+              <div class="skill-box">
+                <h4><i class="fab fa-html5"></i> Front-End</h4>
+                <p>HTML5, CSS3, JavaScript, React, Responsive Design</p>
+              </div>
+              <div class="skill-box">
+                <h4><i class="fas fa-database"></i> Back-End & Database</h4>
+                <p>PHP, MySQL, Firebase</p>
+              </div>
+              <div class="skill-box">
+                <h4><i class="fas fa-code"></i> Programming</h4>
+                <p>Python, Java, C++</p>
+              </div>
+              <div class="skill-box">
+                <h4><i class="fas fa-tools"></i> Tools & Platforms</h4>
+                <p>Git, GitHub, VS Code, XAMPP</p>
+              </div>
+            </div>
+
+            <div class="btn-container about-buttons">
+              <a href="jyoti_resume.pdf" class="btn btn-outline" style="margin-top: 15px;" download>Download Resume</a>
+              <a href="https://drive.google.com/file/d/1W9jHTkB9m8u9I0pXKEnSmaTBwl5ngUKg/view?usp=sharing" class="btn btn-outline" target="_blank" >View Resume</a>
+              <a href="https://linkedin.com/in/yourprofile" class="btn btn-outline" target="_blank">Visit LinkedIn</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects" style="background-color: var(--section-bg);">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Projects</h2>
+                <p>Here are some of the projects I've built to showcase my skills and creativity</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+    <div class="project-slider">
+        <img src="picture/login.png" alt="Project Screenshot 1">
+        <img src="picture/signup.png" alt="Project Screenshot 2">
+        <img src="picture/forget.png" alt="Project Screenshot 3">
+        <img src="picture/new can.png" alt="Project Screenshot 4">
+        <img src="picture/voters.png" alt="Project Screenshot 5">
+        <img src="picture/result.png" alt="Project Screenshot 6">
+    </div>
+</div>
+
+                    <div class="project-info">
+                        <h3>Online Voting System</h3>
+                        <p>A fully responsive voting platform with funcional dashboard, result report, and user authentication.</p>
+                        <div class="project-tech">
+                            <span class="tech">Html & Css</span>
+                            <span class="tech">JavaScript</span>
+                            <span class="tech">MySQL</span>
+                            <span class="tech">Php</span>
+                        </div>
+                        <a href="https://voting-system.ct.ws/" target="_blank" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img" style="background-color: #4895ef;">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>AI-Powered Chatbot</h3>
+                        <p>A conversational chatbot using natural language processing to answer user queries and provide assistance.</p>
+                        <div class="project-tech">
+                            <span class="tech">Python</span>
+                            <span class="tech">TensorFlow</span>
+                            <span class="tech">NLTK</span>
+                            <span class="tech">Flask</span>
+                        </div>
+                        <a href="#" target="_blank" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img" style="background-color: #4cc9f0;">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>Task Management App</h3>
+                        <p>A productivity application that helps users organize tasks, set deadlines, and track progress.</p>
+                        <div class="project-tech">
+                            <span class="tech">Vue.js</span>
+                            <span class="tech">Firebase</span>
+                            <span class="tech">SCSS</span>
+                            <span class="tech">PWA</span>
+                        </div>
+                        <a href="#" target="_blank" class="btn">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="certificates">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Certificates</h2>
+                <p>Certifications I've earned to validate my skills and knowledge</p>
+            </div>
+            <div class="certificates-container">
+                <div class="certificate-card">
+                    <div class="certificate-header">
+                        <div class="certificate-icon">
+                            <i class="fa-brands fa-python"></i>
+                        </div>
+                        <h3>IIT Bombay Python</h3>
+                    </div>
+                    <p>Completed a certified training program by IIT Bombay's Spoken Tutorial Project on python, focusing on practical programming skills and real-world applications. The courses included self-paced video tutorials and assessments, covering core concepts, syntax, and hands-on coding exercises to build robust technical foundations. </p>
+                    <a href="https://drive.google.com/file/d/15qCJZy4EUIeQyrXKR6aNBXCJk3pNSK6n/view?usp=sharing" target="_blank" class="btn">View Certificate</a>
+                </div>
+                <div class="certificate-card">
+                    <div class="certificate-header">
+                        <div class="certificate-icon">
+                           <i class="fab fa-aws"></i>
+                        </div>
+                        <h3>Cloud Computing & AWS</h3>
+                    </div>
+                    <p>Earned this certification demonstrating foundational knowledge of cloud services and how those services are provided with AWS. Validated my understanding of the AWS Cloud, including basic global infrastructure, architectural principles, value proposition, and key services.</p>
+                    <a href="https://drive.google.com/file/d/16jUNcsxrAKHYwrNUCxV0ah-TH_mY681s/view?usp=sharing" target="_blank" class="btn">View Certificate</a>
+                </div>
+                <div class="certificate-card">
+                    <div class="certificate-header">
+                        <div class="certificate-icon">
+                            <i class="fa-brands fa-php"></i>
+                        </div>
+                        <h3> IIT Bombay Php & MySQL </h3>
+                    </div>
+                    <p>Completed a certified training program by IIT Bombay's Spoken Tutorial Project on PHP & MySQL, focusing on server-side scripting, database operations, form handling, and integration of PHP with MySQL. The course provided practical exposure through real-time coding and assessment modules.</p>
+                    
+                    <a href="https://drive.google.com/file/d/1L5mD78uh8QlgXNpFCad5Ol4BgeOdXhdp/view?usp=sharing" target="_blank" class="btn">View Certificate</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact" style="background-color: var(--section-bg);">
+    <div class="container">
+      <div class="section-header">
+        <h2>Get In Touch</h2>
+        <p>Feel free to reach out to me for any opportunities or just to say hello!</p>
+      </div>
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-text">
+              <h3>Email</h3>
+              <a href="mailto:jyotijayantofficial@gmail.com">jyotijayantofficial@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-text">
+              <h3>Phone</h3>
+              <p>+91 8002168630</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-text">
+              <h3>Location</h3>
+              <p>Patna, Bihar, INDIA</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <form id="contact-form">
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Your Email" required />
+            </div>
+            <div class="form-group">
+              <input type="text" name="subject" placeholder="Subject" required />
+            </div>
+            <div class="form-group">
+              <textarea name="message" placeholder="Your Message" required></textarea>
+            </div>
+            <input type="hidden" name="timestamp" id="timestamp">
+            <button type="submit" class="btn">Send Message</button>
+            <div id="form-status" class="form-status" style="display: none;"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="social-links">
+        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p class="copyright">© 2025 Jyoti Jayant. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      document.getElementById("timestamp").value = new Date().toLocaleString();
+      const form = this;
+      const formStatus = document.getElementById('form-status');
+      
+      emailjs.sendForm('service_kwrsl6e', 'template_9x2owpd', form)
+        .then(function () {
+          formStatus.style.display = 'block';
+          formStatus.textContent = '✔️ Message sent successfully!';
+          formStatus.className = 'form-status success';
+          setTimeout(() => formStatus.style.display = 'none', 3000);
+          form.reset();
+        }, function (error) {
+          formStatus.style.display = 'block';
+          formStatus.textContent = '❌ Failed to send message. Try again later.';
+          formStatus.className = 'form-status error';
+          setTimeout(() => formStatus.style.display = 'none', 3000);
+        });
+    });
+  </script>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+      body.classList.add('dark-mode');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
