@@ -1164,9 +1164,38 @@
        }).then(r => r.ok ? showSuccess() : showError()) */
 
     setTimeout(() => {
+  fetch('https://formspree.io/f/mgodkgov', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name: fname,
+      email: email,
+      message: message
+    })
+  })
+  .then(r => {
+    if (r.ok) {
       document.getElementById('contactForm').style.display = 'none';
       document.getElementById('formSuccess').style.display = 'block';
-    }, 1200);
+    } else {
+      btn.textContent = 'Send Message ✈️';
+      btn.style.opacity = '1';
+      btn.disabled = false;
+      document.getElementById('formError').textContent = '⚠️ Something went wrong. Please email me directly.';
+      document.getElementById('formError').style.display = 'block';
+    }
+  })
+  .catch(() => {
+    btn.textContent = 'Send Message ✈️';
+    btn.style.opacity = '1';
+    btn.disabled = false;
+    document.getElementById('formError').textContent = '⚠️ Network error. Please try again or email me directly.';
+    document.getElementById('formError').style.display = 'block';
+  });
+}, 1200);
   });
 
   /* ── ACTIVE NAV LINK ON SCROLL ── */
