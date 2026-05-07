@@ -1150,8 +1150,58 @@
     <a href="#" class="social-link" title="Twitter/X" aria-label="Twitter profile">𝕏</a>
   </div>
 </footer>
-
+<!-- ── CERTIFICATE MODAL ── -->
+<div class="cert-overlay" id="certOverlay">
+  <div class="cert-modal">
+    <div class="cert-modal-header">
+      <div>
+        <div class="cert-modal-name" id="certModalName"></div>
+        <div class="cert-modal-issuer-label" id="certModalIssuer"></div>
+      </div>
+      <button class="cert-close-btn" onclick="closeCert()">✕</button>
+    </div>
+    <div class="cert-iframe-wrap">
+      <iframe id="certFrame" src="" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="cert-modal-footer">
+      <a class="cert-open-link" id="certOpenLink" href="#" target="_blank" rel="noopener">
+        Open in Drive ↗
+      </a>
+      <span style="font-size:0.72rem;color:var(--text-muted);">Press Esc to close</span>
+    </div>
+  </div>
+</div>
 <script>
+/* ── CERTIFICATE MODAL ── */
+function openCert(fileId, name, issuer) {
+  const url = `https://drive.google.com/file/d/${fileId}/preview`;
+  document.getElementById('certModalName').textContent = name;
+  document.getElementById('certModalIssuer').textContent = issuer;
+  document.getElementById('certFrame').src = url;
+  document.getElementById('certOpenLink').href =
+    `https://drive.google.com/file/d/${fileId}/view`;
+  document.getElementById('certOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCert() {
+  document.getElementById('certOverlay').classList.remove('open');
+  document.getElementById('certFrame').src = '';
+  document.body.style.overflow = '';
+}
+
+// Close on backdrop click
+document.getElementById('certOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeCert();
+});
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeCert();
+});
+
+
+
   /* ── CURSOR ── */
   const cursor = document.getElementById('cursor');
   const ring   = document.getElementById('cursorRing');
