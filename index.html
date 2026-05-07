@@ -404,11 +404,34 @@
   .cert-issuer { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent3); margin-bottom: 0.3rem; }
   .cert-name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.98rem; margin-bottom: 0.3rem; }
   .cert-date { color: var(--text-muted); font-size: 0.78rem; }
-  .cert-verify {
-    display: inline-block; margin-top: 0.6rem;
-    font-size: 0.72rem; color: var(--accent2); text-decoration: none;
-    border-bottom: 1px solid rgba(6,182,212,0.3); transition: border-color 0.2s ease;
-  }
+  .cert-verify{
+  display:inline-flex;
+  align-items:center;
+  gap:0.25rem;
+
+  margin-top:0.6rem;
+  padding:0;
+
+  background:none;
+  border:none;
+  outline:none;
+
+  font-size:0.72rem;
+  font-family:'DM Sans',sans-serif;
+  font-weight:400;
+
+  color:var(--accent2);
+  text-decoration:none;
+
+  border-bottom:1px solid rgba(6,182,212,0.3);
+
+  cursor:pointer;
+
+  transition:
+    border-color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.15s ease;
+}
   .cert-verify:hover { border-color: var(--accent2); }
 
 
@@ -721,7 +744,7 @@
           <span class="stat-label">Projects Built</span>
         </div>
         <div class="stat">
-          <span class="stat-num" data-target="5" data-suffix="">5</span>
+          <span class="stat-num" data-target="8" data-suffix="">8</span>
           <span class="stat-label">Certifications</span>
         </div>
       </div>
@@ -862,7 +885,7 @@
     <div class="project-card reveal reveal-delay-1">
   <div class="project-thumb">
     <div class="thumb-bg" style="background:linear-gradient(135deg,#0f172a,#1e3a5f,#0ea5e9);"></div>
-    <span class="thumb-label">05</span>
+    <span class="thumb-label">04</span>
     <span class="proj-icon">🤖</span>
   </div>
   <div class="project-body">
@@ -948,7 +971,7 @@
         <div class="cert-issuer">Amazon Web Services</div>
         <div class="cert-name">Cloud Computing &amp; AWS</div>
         <div class="cert-date">Issued: October 2024</div>
-        <button class="cert-verify" onclick="openCert('15qCJZy4EUIeQyrXKR6aNBXCJk3pNSK6n','Python Programming','IIT Bombay · Spoken Tutorial Project')">
+        <button class="cert-verify" onclick="openCert('16jUNcsxrAKHYwrNUCxV0ah-TH_mY681s','Cloud Computing & AWS','Amazon Web Services')">
   Verify Certificate ↗
 </button>
       </div>
@@ -960,7 +983,7 @@
         <div class="cert-issuer">IIT Bombay · Spoken Tutorial Project</div>
         <div class="cert-name">PHP &amp; MySQL</div>
         <div class="cert-date">Issued: April 2025</div>
-        <button class="cert-verify" onclick="openCert('16jUNcsxrAKHYwrNUCxV0ah-TH_mY681s','PHP & MySQL','IIT Bombay · Spoken Tutorial Project')">
+        <button class="cert-verify" onclick="openCert('1L5mD78uh8QlgXNpFCad5Ol4BgeOdXhdp','PHP & MySQL','IIT Bombay · Spoken Tutorial Project')">
   Verify Certificate ↗
 </button>
       </div>
@@ -1171,38 +1194,47 @@
     </div>
   </div>
 </div>
+
+
+
 <script>
 /* ── CERTIFICATE MODAL ── */
 function openCert(fileId, name, issuer) {
-  const url = `https://drive.google.com/uc?export=preview&id=${fileId}`;
-
-  document.getElementById('certModalName').textContent = name;
-  document.getElementById('certModalIssuer').textContent = issuer;
-  document.getElementById('certFrame').src = url;
-
-  document.getElementById('certOpenLink').href =
-    `https://drive.google.com/file/d/${fileId}/view`;
-
-  document.getElementById('certOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  window.open(
+    `https://drive.google.com/file/d/${fileId}/view`,
+    '_blank',
+    'noopener,noreferrer'
+  );
 }
 
 function closeCert() {
-  document.getElementById('certOverlay').classList.remove('open');
-  document.getElementById('certFrame').src = '';
+
+  document.getElementById('certOverlay')
+    .classList.remove('open');
+
   document.body.style.overflow = '';
+
+  setTimeout(() => {
+    document.getElementById('certFrame').src =
+      'about:blank';
+  }, 180);
 }
 
-// Close on backdrop click
-document.getElementById('certOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeCert();
+/* ESC CLOSE */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeCert();
+  }
 });
 
-// Close on Escape key
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeCert();
-});
+/* CLICK OUTSIDE CLOSE */
+document.getElementById('certOverlay')
+.addEventListener('click', (e) => {
 
+  if (e.target.id === 'certOverlay') {
+    closeCert();
+  }
+});
 
 
   /* ── CURSOR ── */
