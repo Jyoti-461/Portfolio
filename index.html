@@ -400,94 +400,140 @@
     border-radius: 12px; display: flex; align-items: center; justify-content: center;
     font-size: 1.5rem;
   }
-  .cert-body { flex: 1; min-width: 0; }                   /* FIX: min-width prevents overflow */
+  .cert-body { flex: 1; min-width: 0; }
   .cert-issuer { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent3); margin-bottom: 0.3rem; }
   .cert-name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.98rem; margin-bottom: 0.3rem; }
   .cert-date { color: var(--text-muted); font-size: 0.78rem; }
-  .cert-verify{
-  display:inline-flex;
-  align-items:center;
-  gap:0.25rem;
 
-  margin-top:0.6rem;
-  padding:0;
+  /* ── CERT VERIFY BUTTON ── */
+  .cert-verify {
+    display: inline-block; margin-top: 0.6rem;
+    font-size: 0.72rem; color: var(--accent2);
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(6,182,212,0.3);
+    padding: 0;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+    position: relative; z-index: 2;
+  }
+  .cert-verify:hover { border-color: var(--accent2); color: #fff; }
 
-  background:none;
-  border:none;
-  outline:none;
+  /* ══════════════════════════════
+     CERTIFICATE PREVIEW MODAL
+  ══════════════════════════════ */
+  .cert-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    pointer-events: none;
+    transition: background 0.2s ease;
+  }
+  .cert-overlay.open {
+    background: rgba(0,0,0,0.80);
+    pointer-events: all;
+  }
+  .cert-modal {
+    background: var(--surface);
+    border: 1px solid rgba(124,58,237,0.35);
+    border-radius: 20px;
+    width: min(92vw, 740px);
+    max-height: 88vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* start tiny at origin point of the verify button (bottom-center) */
+    transform: scale(0.04) translateY(80px);
+    opacity: 0;
+    transform-origin: bottom center;
+    /* ── OPEN SPEED: change 0.28s to make opening faster/slower ── */
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+  }
+  .cert-overlay.open .cert-modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  /* ── CLOSE SPEED: change 0.18s to make closing faster/slower ── */
+  .cert-overlay:not(.open) .cert-modal {
+    transition: transform 0.18s cubic-bezier(0.55, 0, 1, 0.45), opacity 0.15s ease;
+  }
 
-  font-size:0.72rem;
-  font-family:'DM Sans',sans-serif;
-  font-weight:400;
-
-  color:var(--accent2);
-  text-decoration:none;
-
-  border-bottom:1px solid rgba(6,182,212,0.3);
-
-  cursor:pointer;
-
-  transition:
-    border-color 0.2s ease,
-    opacity 0.2s ease,
-    transform 0.15s ease;
-}
-  .cert-verify:hover { border-color: var(--accent2); }
-
-
-
-
-
-  /* ── CERTIFICATE PREVIEW MODAL ── */
-.cert-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 9999; pointer-events: none;
-  transition: background 0.18s ease;
-}
-.cert-overlay.open { background: rgba(0,0,0,0.75); pointer-events: all; }
-
-.cert-modal {
-  background: var(--surface); border: 1px solid rgba(124,58,237,0.3);
-  border-radius: 20px; width: min(90vw, 720px); max-height: 85vh;
-  overflow: hidden; display: flex; flex-direction: column;
-  transform: scale(0.05) translateY(60px); opacity: 0;
-  transform-origin: bottom center;
-  /* ── OPEN SPEED: change 0.22s ── */
-  transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), opacity 0.18s ease;
-}
-.cert-overlay.open .cert-modal { transform: scale(1) translateY(0); opacity: 1; }
-/* ── CLOSE SPEED: change 0.16s ── */
-.cert-overlay:not(.open) .cert-modal {
-  transition: transform 0.16s cubic-bezier(0.55,0,1,0.45), opacity 0.14s ease;
-}
-
-.cert-modal-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
-}
-.cert-modal-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
-.cert-modal-issuer-label { font-size: 0.72rem; color: var(--accent3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
-.cert-close-btn {
-  width: 34px; height: 34px; border-radius: 8px;
-  border: 1px solid rgba(124,58,237,0.25); background: rgba(124,58,237,0.08);
-  color: var(--text-muted); font-size: 1.1rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s ease; line-height: 1;
-}
-.cert-close-btn:hover { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.35); color: #f87171; }
-.cert-iframe-wrap { flex: 1; overflow: hidden; background: var(--bg); }
-.cert-iframe-wrap iframe { width: 100%; height: 100%; min-height: 440px; border: none; }
-.cert-modal-footer {
-  padding: 0.7rem 1.4rem; border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
-}
-.cert-open-link {
-  font-size: 0.78rem; color: var(--accent2); text-decoration: none;
-  display: inline-flex; align-items: center; gap: 0.3rem; transition: opacity 0.2s;
-}
-.cert-open-link:hover { opacity: 0.7; }
+  .cert-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    background: var(--surface2);
+  }
+  .cert-modal-header-left { display: flex; flex-direction: column; gap: 2px; }
+  .cert-modal-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 1.05rem;
+    color: var(--text);
+  }
+  .cert-modal-issuer-label {
+    font-size: 0.70rem; color: var(--accent3);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .cert-close-btn {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    border: 1px solid rgba(124,58,237,0.3);
+    background: rgba(124,58,237,0.1);
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s ease;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .cert-close-btn:hover {
+    background: rgba(239,68,68,0.15);
+    border-color: rgba(239,68,68,0.4);
+    color: #f87171;
+  }
+  .cert-iframe-wrap {
+    flex: 1;
+    overflow: hidden;
+    background: #fff;
+    min-height: 460px;
+  }
+  .cert-iframe-wrap iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 460px;
+    border: none;
+    display: block;
+  }
+  .cert-modal-footer {
+    padding: 0.75rem 1.4rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    background: var(--surface2);
+  }
+  .cert-modal-footer span {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+  .cert-open-link {
+    font-size: 0.78rem; color: var(--accent2);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+  .cert-open-link:hover { opacity: 0.7; }
 
   /* ── CONTACT ── */
   #contact { background: var(--surface); }
@@ -661,6 +707,29 @@
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ══════════════════════════════
+     CERTIFICATE PREVIEW OVERLAY
+     (must be OUTSIDE all sections so z-index works correctly)
+════════════════════════════════ -->
+<div class="cert-overlay" id="certOverlay">
+  <div class="cert-modal" id="certModal">
+    <div class="cert-modal-header">
+      <div class="cert-modal-header-left">
+        <div class="cert-modal-name" id="certModalName">Certificate</div>
+        <div class="cert-modal-issuer-label" id="certModalIssuer">Issuer</div>
+      </div>
+      <button class="cert-close-btn" id="certCloseBtn" aria-label="Close preview">✕</button>
+    </div>
+    <div class="cert-iframe-wrap">
+      <iframe id="certIframe" src="" title="Certificate Preview" loading="lazy" allow="autoplay"></iframe>
+    </div>
+    <div class="cert-modal-footer">
+      <span>Preview may require Google sign-in if private</span>
+      <a class="cert-open-link" id="certOpenLink" href="#" target="_blank" rel="noopener">Open in Google Drive ↗</a>
+    </div>
+  </div>
+</div>
 
 <!-- ── NAV ── -->
 <nav>
@@ -1173,68 +1242,56 @@
     <a href="#" class="social-link" title="Twitter/X" aria-label="Twitter profile">𝕏</a>
   </div>
 </footer>
-<!-- ── CERTIFICATE MODAL ── -->
-<div class="cert-overlay" id="certOverlay">
-  <div class="cert-modal">
-    <div class="cert-modal-header">
-      <div>
-        <div class="cert-modal-name" id="certModalName"></div>
-        <div class="cert-modal-issuer-label" id="certModalIssuer"></div>
-      </div>
-      <button class="cert-close-btn" onclick="closeCert()">✕</button>
-    </div>
-    <div class="cert-iframe-wrap">
-      <iframe id="certFrame" src="" allowfullscreen loading="lazy"></iframe>
-    </div>
-    <div class="cert-modal-footer">
-      <a class="cert-open-link" id="certOpenLink" href="#" target="_blank" rel="noopener">
-        Open in Drive ↗
-      </a>
-      <span style="font-size:0.72rem;color:var(--text-muted);">Press Esc to close</span>
-    </div>
-  </div>
-</div>
-
-
 
 <script>
-/* ── CERTIFICATE MODAL ── */
-function openCert(fileId, name, issuer) {
-  window.open(
-    `https://drive.google.com/file/d/${fileId}/view`,
-    '_blank',
-    'noopener,noreferrer'
-  );
-}
+  /* ════════════════════════════════════════
+     CERTIFICATE MODAL — openCert / closeCert
+  ════════════════════════════════════════ */
+  var certOverlay  = document.getElementById('certOverlay');
+  var certModal    = document.getElementById('certModal');
+  var certIframe   = document.getElementById('certIframe');
+  var certModalName    = document.getElementById('certModalName');
+  var certModalIssuer  = document.getElementById('certModalIssuer');
+  var certOpenLink     = document.getElementById('certOpenLink');
+  var certCloseBtn     = document.getElementById('certCloseBtn');
 
-function closeCert() {
+  function openCert(driveId, name, issuer) {
+    /* Build URLs — /preview embeds the doc; /view opens Drive directly */
+    var previewUrl = 'https://drive.google.com/file/d/' + driveId + '/preview';
+    var viewUrl    = 'https://drive.google.com/file/d/' + driveId + '/view?usp=sharing';
 
-  document.getElementById('certOverlay')
-    .classList.remove('open');
+    /* Populate modal content BEFORE showing it */
+    certModalName.textContent   = name;
+    certModalIssuer.textContent = issuer;
+    certOpenLink.href           = viewUrl;
+    certIframe.src              = previewUrl;
 
-  document.body.style.overflow = '';
-
-  setTimeout(() => {
-    document.getElementById('certFrame').src =
-      'about:blank';
-  }, 180);
-}
-
-/* ESC CLOSE */
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeCert();
+    /* Show overlay — CSS transition handles the pop-up animation */
+    certOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
-});
 
-/* CLICK OUTSIDE CLOSE */
-document.getElementById('certOverlay')
-.addEventListener('click', (e) => {
-
-  if (e.target.id === 'certOverlay') {
-    closeCert();
+  function closeCert() {
+    certOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    /* ── Clear iframe AFTER close animation (matches 0.18s close speed above) ── */
+    setTimeout(function() {
+      certIframe.src = '';
+    }, 220);
   }
-});
+
+  /* Close button */
+  certCloseBtn.addEventListener('click', closeCert);
+
+  /* Click backdrop to close */
+  certOverlay.addEventListener('click', function(e) {
+    if (e.target === certOverlay) closeCert();
+  });
+
+  /* Escape key to close */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && certOverlay.classList.contains('open')) closeCert();
+  });
 
 
   /* ── CURSOR ── */
