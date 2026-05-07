@@ -1174,12 +1174,15 @@
 <script>
 /* ── CERTIFICATE MODAL ── */
 function openCert(fileId, name, issuer) {
-  const url = `https://drive.google.com/file/d/${fileId}/preview`;
+  const url = `https://drive.google.com/uc?export=preview&id=${fileId}`;
+
   document.getElementById('certModalName').textContent = name;
   document.getElementById('certModalIssuer').textContent = issuer;
   document.getElementById('certFrame').src = url;
+
   document.getElementById('certOpenLink').href =
     `https://drive.google.com/file/d/${fileId}/view`;
+
   document.getElementById('certOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
