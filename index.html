@@ -271,7 +271,7 @@
     position: relative; overflow: hidden;
     border: 1px solid rgba(124,58,237,0.25);
     display: flex; align-items: center; justify-content: center;
-    font-size: 5rem;
+    padding: 0;  
   }
   .about-avatar::after {
     content: ''; position: absolute; inset: 0;
@@ -410,6 +410,61 @@
     border-bottom: 1px solid rgba(6,182,212,0.3); transition: border-color 0.2s ease;
   }
   .cert-verify:hover { border-color: var(--accent2); }
+
+
+
+
+
+  /* ── CERTIFICATE PREVIEW MODAL ── */
+.cert-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; pointer-events: none;
+  transition: background 0.18s ease;
+}
+.cert-overlay.open { background: rgba(0,0,0,0.75); pointer-events: all; }
+
+.cert-modal {
+  background: var(--surface); border: 1px solid rgba(124,58,237,0.3);
+  border-radius: 20px; width: min(90vw, 720px); max-height: 85vh;
+  overflow: hidden; display: flex; flex-direction: column;
+  transform: scale(0.05) translateY(60px); opacity: 0;
+  transform-origin: bottom center;
+  /* ── OPEN SPEED: change 0.22s ── */
+  transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), opacity 0.18s ease;
+}
+.cert-overlay.open .cert-modal { transform: scale(1) translateY(0); opacity: 1; }
+/* ── CLOSE SPEED: change 0.16s ── */
+.cert-overlay:not(.open) .cert-modal {
+  transition: transform 0.16s cubic-bezier(0.55,0,1,0.45), opacity 0.14s ease;
+}
+
+.cert-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.cert-modal-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+.cert-modal-issuer-label { font-size: 0.72rem; color: var(--accent3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+.cert-close-btn {
+  width: 34px; height: 34px; border-radius: 8px;
+  border: 1px solid rgba(124,58,237,0.25); background: rgba(124,58,237,0.08);
+  color: var(--text-muted); font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s ease; line-height: 1;
+}
+.cert-close-btn:hover { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.35); color: #f87171; }
+.cert-iframe-wrap { flex: 1; overflow: hidden; background: var(--bg); }
+.cert-iframe-wrap iframe { width: 100%; height: 100%; min-height: 440px; border: none; }
+.cert-modal-footer {
+  padding: 0.7rem 1.4rem; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.cert-open-link {
+  font-size: 0.78rem; color: var(--accent2); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.3rem; transition: opacity 0.2s;
+}
+.cert-open-link:hover { opacity: 0.7; }
 
   /* ── CONTACT ── */
   #contact { background: var(--surface); }
@@ -608,7 +663,7 @@
   <a href="#projects" class="mobile-nav-link">Projects</a>
   <a href="#certificates" class="mobile-nav-link">Certs</a>
   <a href="#contact" class="mobile-nav-link">Contact</a>
-  <a href="#email" class="btn-primary" style="width:fit-content;">Hire Me →</a>
+  <a href="#formemail" class="btn-primary" style="width:fit-content;">Hire Me →</a>
 </div>
 
 <!-- ── HERO ── -->
@@ -647,7 +702,9 @@
     <div class="about-avatar-wrap reveal">
       <div class="about-deco"></div>
       <div class="about-deco2"></div>
-      <div class="about-avatar">🧑‍💻</div>
+      <div class="about-avatar">
+      <img src="My-Photo.jpeg" alt="Jyoti Jayant" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:24px;position:relative;z-index:1;">
+      </div>
     </div>
     <div>
       <div class="section-label reveal">Who I Am</div>
@@ -878,8 +935,10 @@
       <div class="cert-body">
         <div class="cert-issuer">IIT Bombay · Spoken Tutorial Project</div>
         <div class="cert-name">Python Programming</div>
-        <div class="cert-date">Issued: March 2024 · Expires: March 2027</div>
-        <a href="https://drive.google.com/open?id=15qCJZy4EUIeQyrXKR6aNBXCJk3pNSK6n" target="_blank" rel="noopener" class="cert-verify">Verify Certificate ↗</a>
+        <div class="cert-date">Issued: March 2024</div>
+        <button class="cert-verify" onclick="openCert('15qCJZy4EUIeQyrXKR6aNBXCJk3pNSK6n','Python Programming','IIT Bombay · Spoken Tutorial Project')">
+  Verify Certificate ↗
+</button>
       </div>
     </div>
 
@@ -888,8 +947,10 @@
       <div class="cert-body">
         <div class="cert-issuer">Amazon Web Services</div>
         <div class="cert-name">Cloud Computing &amp; AWS</div>
-        <div class="cert-date">Issued: April 2024 · Expires: April 2027</div>
-        <a href="https://drive.google.com/open?id=16jUNcsxrAKHYwrNUCxV0ah-TH_mY681s" target="_blank" rel="noopener" class="cert-verify">Verify Certificate ↗</a>
+        <div class="cert-date">Issued: October 2024</div>
+        <button class="cert-verify" onclick="openCert('15qCJZy4EUIeQyrXKR6aNBXCJk3pNSK6n','Python Programming','IIT Bombay · Spoken Tutorial Project')">
+  Verify Certificate ↗
+</button>
       </div>
     </div>
 
@@ -898,8 +959,10 @@
       <div class="cert-body">
         <div class="cert-issuer">IIT Bombay · Spoken Tutorial Project</div>
         <div class="cert-name">PHP &amp; MySQL</div>
-        <div class="cert-date">Issued: May 2024 · Expires: May 2027</div>
-        <a href="https://drive.google.com/open?id=1L5mD78uh8QlgXNpFCad5Ol4BgeOdXhdp" target="_blank" rel="noopener" class="cert-verify">Verify Certificate ↗</a>
+        <div class="cert-date">Issued: April 2025</div>
+        <button class="cert-verify" onclick="openCert('16jUNcsxrAKHYwrNUCxV0ah-TH_mY681s','PHP & MySQL','IIT Bombay · Spoken Tutorial Project')">
+  Verify Certificate ↗
+</button>
       </div>
     </div>
 
@@ -908,8 +971,10 @@
       <div class="cert-body">
         <div class="cert-issuer">Microsoft</div>
         <div class="cert-name">Microsoft Power BI</div>
-        <div class="cert-date">Issued: June 2024 · Expires: June 2027</div>
-        <a href="https://drive.google.com/open?id=1IbXLe3Dz2ehLgGr5J0oD8k5pakRRgHa2" target="_blank" rel="noopener" class="cert-verify">Verify Certificate ↗</a>
+        <div class="cert-date">Issued: April 2025</div>
+        <button class="cert-verify" onclick="openCert('1IbXLe3Dz2ehLgGr5J0oD8k5pakRRgHa2','Microsoft Power BI','Microsoft')">
+  Verify Certificate ↗
+</button>
       </div>
     </div>
 
@@ -918,8 +983,10 @@
       <div class="cert-body">
         <div class="cert-issuer">IIT Bombay · Spoken Tutorial Project</div>
         <div class="cert-name">RDBMS &amp; SQL</div>
-        <div class="cert-date">Issued: July 2024 · Expires: July 2027</div>
-        <a href="https://drive.google.com/open?id=18twwkTbSwFbSB8xq7OhVTJ4VyTixRXRl" target="_blank" rel="noopener" class="cert-verify">Verify Certificate ↗</a>
+        <div class="cert-date">Issued: April 2025</div>
+        <button class="cert-verify" onclick="openCert('18twwkTbSwFbSB8xq7OhVTJ4VyTixRXRl','RDBMS & SQL','IIT Bombay · Spoken Tutorial Project')">
+  Verify Certificate ↗
+</button>
       </div>
     </div>
 
@@ -928,8 +995,10 @@
       <div class="cert-body">
         <div class="cert-issuer">IIT Bombay · Spoken Tutorial Project</div>
         <div class="cert-name">C Programming</div>
-        <div class="cert-date">Issued: August 2024 · Expires: August 2027</div>
-        <a href="https://drive.google.com/open?id=18QpF0sS99PC05ERo6yvXdBLXzl_7hdbY" target="_blank" rel="noopener" class="cert-verify">Verify Certificate ↗</a>
+        <div class="cert-date">Issued: September 2024</div>
+        <button class="cert-verify" onclick="openCert('18QpF0sS99PC05ERo6yvXdBLXzl_7hdbY','C Programming','IIT Bombay · Spoken Tutorial Project')">
+  Verify Certificate ↗
+</button>
       </div>
     </div>
 
@@ -938,8 +1007,10 @@
       <div class="cert-body">
         <div class="cert-issuer">IIT Bombay · Spoken Tutorial Project</div>
         <div class="cert-name">C++ Programming</div>
-        <div class="cert-date">Issued: September 2024 · Expires: September 2027</div>
-        <a href="https://drive.google.com/open?id=1STVB-7RfQpig5W-zy_kFIX12h9ME7y_3" target="_blank" rel="noopener" class="cert-verify">Verify Certificate ↗</a>
+        <div class="cert-date">Issued: September 2024</div>
+        <button class="cert-verify" onclick="openCert('1STVB-7RfQpig5W-zy_kFIX12h9ME7y_3','C++ Programming','IIT Bombay · Spoken Tutorial Project')">
+  Verify Certificate ↗
+</button>
       </div>
     </div>
 
@@ -948,8 +1019,10 @@
       <div class="cert-body">
         <div class="cert-issuer">IIT Bombay · Spoken Tutorial Project</div>
         <div class="cert-name">Java Programming</div>
-        <div class="cert-date">Issued: October 2024 · Expires: October 2027</div>
-        <a href="https://drive.google.com/open?id=16pJ3BBow_F7lJEaKeCVib8JCai_i-agN" target="_blank" rel="noopener" class="cert-verify">Verify Certificate ↗</a>
+        <div class="cert-date">Issued: April 2025</div>
+        <button class="cert-verify" onclick="openCert('16pJ3BBow_F7lJEaKeCVib8JCai_i-agN','Java Programming','IIT Bombay · Spoken Tutorial Project')">
+  Verify Certificate ↗
+</button>
       </div>
     </div>
 
@@ -994,7 +1067,7 @@
     </div>
 
     <!-- FORM -->
-    <div class="reveal reveal-delay-2" id="email">
+    <div class="reveal reveal-delay-2" id="formemail">
       <div style="background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:2.5rem;">
         <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.4rem;margin-bottom:0.4rem;">Send Me a Message</h3>
         <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:2rem;">I typically respond within 24 hours ⚡</p>
